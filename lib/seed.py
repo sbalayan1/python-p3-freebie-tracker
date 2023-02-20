@@ -20,23 +20,29 @@ if __name__ == "__main__":
     print("seeding DATA!!!!!")
     faker = Faker()
     #company needs: name, year
-    company = Company(name=faker.name(), founding_year=random.randint(1990, 2023))
-    session.add(company)
-
-    #dev needs: name
-    dev = Dev(name=faker.name())
-    session.add(dev)
-    session.commit()
+    companies = []
+    devs = []
+    for i in range(0, 100):
+        company = Company(name=faker.name(), founding_year=random.randint(1990, 2023))
+        dev = Dev(name=faker.name())
+        session.add(company)
+        session.add(dev)
+        session.commit()
+        companies.append(company.id)
+        devs.append(dev.id)
 
     #freebie needs: item_name, value, company_id, dev_id
-    freebie = Freebie(
-        item_name=faker.name(), 
-        value=random.randint(0,100), 
-        company_id=company.id, 
-        dev_id=dev.id)
 
-    session.add(freebie)
-    session.commit()
+    for i in range(0, 50):
+        freebie = Freebie(
+            item_name=faker.name(), 
+            value=random.randint(0,100), 
+            company_id=companies[i],
+            dev_id=devs[i]
+        )
+        session.add(freebie)
+        session.commit()
+
     session.close()
 
     print("Session closed!!!!")

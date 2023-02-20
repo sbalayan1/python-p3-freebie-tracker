@@ -19,6 +19,10 @@ class Freebie(Base):
     
     def __repr__(self):
         return f'<Freebie {self.item_name}>'
+    
+    
+    def print_details(self):
+        print(f'{self.dev.name} owns {self.item_name} from {self.company.name}')
 
 
 class Company(Base):
@@ -37,6 +41,19 @@ class Company(Base):
 
     def __repr__(self):
         return f'<Company {self.name}>'
+
+    def give_freebie(self, dev, item_name, value):
+        pass
+        freebie = Freebie(item_name = item_name, value = value, company_id = self.id, dev_id = dev.id)
+    
+    @classmethod
+    def oldest_company(cls):
+        pass
+        cls.all.sort()
+        return cls[-1]
+
+
+
 
 class Dev(Base):
     __tablename__ = 'devs'
