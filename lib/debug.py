@@ -23,6 +23,9 @@ if __name__ == '__main__':
     dev = session.query(Dev).first()
     print("dev: ", dev)
     print("dev.freebies:", dev.freebies)
-    print("dev.devs:", dev.companies)
+    print("dev.companies:", dev.companies)
+
+    new_dev = session.query(Dev).all()[1]
+    dev.give_away(new_dev, freebie)
 
     import ipdb; ipdb.set_trace()
